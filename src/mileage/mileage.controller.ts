@@ -69,6 +69,16 @@ export class MileageController {
     return this.mileageService.findAll();
   }
 
+  @Get('gasInfo')
+  findGas() {
+    return this.mileageService.getGasIDinfoAll();
+  }
+
+  @Get('gasInfo/specific/:gasID')
+  findGasSpec(@Param('gasID') id: string) {
+    return this.mileageService.getGasIDinfoSpec(id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.mileageService.findOne(id);
