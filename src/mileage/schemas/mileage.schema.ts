@@ -7,23 +7,23 @@ export type MileageDocument = Mileage & HydratedDocument<Mileage>;
 export class Mileage {
   @Prop()
   from: number;
-
   @Prop()
   to: number;
-
   @Prop()
   miles: number;
-
   @Prop()
   startDate: Date;
-
   @Prop()
   endDate: Date;
-
   @Prop()
   total: number;
-
   @Prop()
   gas: boolean;
+  @Prop()
+  gasID: string;
+  @Prop()
+  cost: number;
+  @Prop()
+  totalCost: number;
 }
 export const MileageSchema = SchemaFactory.createForClass(Mileage);
