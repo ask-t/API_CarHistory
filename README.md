@@ -45,7 +45,7 @@ $ npm run test:cov
 ```
 
 ## URL
-http://localhost:3100/api#/
+http://localhost:3100/api/
 
 You can see and try all API endpoints on Swagger.
 
