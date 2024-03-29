@@ -48,6 +48,14 @@ export class MileageController {
         value: {
           to: 0,
           gas: true,
+          totalCost: 0,
+        },
+      },
+      example2: {
+        summary: 'Example 2',
+        value: {
+          to: 0,
+          gas: false,
         },
       },
     },
@@ -59,6 +67,16 @@ export class MileageController {
   @Get('all')
   findAll() {
     return this.mileageService.findAll();
+  }
+
+  @Get('gasInfo')
+  findGas() {
+    return this.mileageService.getGasIDinfoAll();
+  }
+
+  @Get('gasInfo/specific/:gasID')
+  findGasSpec(@Param('gasID') id: string) {
+    return this.mileageService.getGasIDinfoSpec(id);
   }
 
   @Get(':id')
