@@ -34,7 +34,7 @@ export class MileageController {
   reset(@Body() createMileageDto: CreateMileageDto) {
     return this.mileageService.reset(createMileageDto);
   }
-  @Post('checkin')
+  @Get('checkin')
   checkin() {
     return this.mileageService.checkIN();
   }
