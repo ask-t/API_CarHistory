@@ -156,4 +156,14 @@ export class MileageService {
     }
     return model.save();
   }
+
+  async getStatus(): Promise<boolean> {
+    const info = await this.mileageModel
+      .findOne()
+      .sort({ startDate: -1 })
+      .exec();
+    const endDate: Date = info.endDate;
+    if (endDate == null) return true;
+    return false;
+  }
 }
