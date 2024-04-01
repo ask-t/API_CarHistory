@@ -78,8 +78,7 @@ export class MileageController {
   findGasSpec(@Param('gasID') id: string) {
     return this.mileageService.getGasIDinfoSpec(id);
   }
-
-  @Get(':id')
+  @Get('find/:id')
   findOne(@Param('id') id: string) {
     return this.mileageService.findOne(id);
   }
@@ -88,5 +87,11 @@ export class MileageController {
   delete(@Param('id') id: string) {
     console.log(id);
     return this.mileageService.deleteMileageById(id);
+  }
+
+  @Get('status')
+  getStatus() {
+    return this.mileageService.getStatus();
+    // return 'status';
   }
 }
