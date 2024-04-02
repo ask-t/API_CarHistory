@@ -3,11 +3,11 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: ['http://localhost:3000/*'], // Specify the client origin or use '*' to allow all origins
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type, Accept',
+    origin: 'http://localhost:3000', // Specify the allowed origin
+    methods: 'GET,POST,PUT,DELETE,OPTIONS', // Optionally specify allowed methods
+    allowedHeaders: 'Content-Type, Authorization', // Optionally specify allowed headers
   });
   const config = new DocumentBuilder()
     .setTitle('Car History')
