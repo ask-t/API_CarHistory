@@ -3,9 +3,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
   app.enableCors({
-    origin: ['http://localhost:3000/'], // Specify the client origin or use '*' to allow all origins
+    origin: ['http://localhost:3000/*'], // Specify the client origin or use '*' to allow all origins
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Accept',
   });
