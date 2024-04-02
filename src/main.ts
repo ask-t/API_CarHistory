@@ -5,7 +5,10 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: 'http://localhost:3000', // Specify the allowed origin
+    origin: [
+      'http://localhost:3000',
+      'https://app-car-history-q8r2cpab2-ask-ts-projects.vercel.app/',
+    ], // Specify the allowed origin
     methods: 'GET,POST,PUT,DELETE,OPTIONS', // Optionally specify allowed methods
     allowedHeaders: 'Content-Type, Authorization', // Optionally specify allowed headers
   });
