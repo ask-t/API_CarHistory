@@ -39,6 +39,8 @@ export class MileageService {
     info.endDate = new Date();
     info.gas = mile.gas;
     info.total = info.total + info.miles;
+    info.user = mile.user;
+    info.description = mile.description;
     const gIDModel = await this.gasIDModel.findById(info.gasID).exec();
     gIDModel.totalMile = gIDModel.totalMile + info.miles;
     console.log(info._id.toString());

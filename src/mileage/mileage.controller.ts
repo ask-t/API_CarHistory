@@ -49,6 +49,8 @@ export class MileageController {
           to: 0,
           gas: true,
           totalCost: 0,
+          user: 'string',
+          description: 'string',
         },
       },
       example2: {
@@ -56,6 +58,8 @@ export class MileageController {
         value: {
           to: 0,
           gas: false,
+          user: 'string',
+          description: 'string',
         },
       },
     },

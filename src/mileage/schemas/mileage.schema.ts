@@ -25,5 +25,9 @@ export class Mileage {
   cost: number;
   @Prop()
   totalCost: number;
+  @Prop()
+  user: string;
+  @Prop()
+  description: string;
 }
 export const MileageSchema = SchemaFactory.createForClass(Mileage);
