@@ -168,4 +168,14 @@ export class MileageService {
     if (endDate == null) return true;
     return false;
   }
+
+  async findRecent(): Promise<Mileage> {
+    const info = await this.mileageModel
+      .findOne()
+      .sort({ startDate: -1 })
+      .exec();
+    return info;
+  }
+  
+
 }
