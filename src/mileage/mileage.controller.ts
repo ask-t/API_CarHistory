@@ -98,4 +98,8 @@ export class MileageController {
     return this.mileageService.getStatus();
     // return 'status';
   }
+  @Get('recents')
+  findRecent() {
+    return this.mileageService.findRecent();
+  }
 }
