@@ -100,12 +100,8 @@ export class MileageService {
     return model._id.toString();
   }
 
-  async getGasIDAll(): Promise<GasID[]> {
-    return this.gasIDModel.find().exec();
-  }
-
   async getGasIDinfoAll(): Promise<GetGasDto[]> {
-    const models = await this.gasIDModel.find().exec();
+    const models = await this.gasIDModel.find().sort({ startDate: -1 }).exec();
     const result: GetGasDto[] = [];
     for (let i = 0; i < models.length; i++) {
       const model = models[i];
