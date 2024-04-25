@@ -63,7 +63,7 @@ export class MileageService {
   }
 
   async findAll(): Promise<Mileage[]> {
-    return this.mileageModel.find().exec();
+    return this.mileageModel.find().sort({ startDate: -1 }).exec(); // -1 for descending
   }
 
   async findOne(id: string): Promise<Mileage> {
@@ -176,6 +176,4 @@ export class MileageService {
       .exec();
     return info;
   }
-  
-
 }
