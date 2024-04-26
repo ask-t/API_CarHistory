@@ -149,7 +149,8 @@ export class MileageService {
     model.totalCost = totalCost;
     for (let i = 0; i < model.IDs.length; i++) {
       const mileage = await this.mileageModel.findById(model.IDs[i]).exec();
-      mileage.cost = (totalCost / model.totalMile) * mileage.miles;
+      const calculatedCost = (totalCost / model.totalMile) * mileage.miles;
+      mileage.cost = parseFloat(calculatedCost.toFixed(2));
       await mileage.save();
     }
     return model.save();
