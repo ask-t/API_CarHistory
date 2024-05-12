@@ -113,7 +113,6 @@ export class MileageController {
         value: {
           gasID: 'string',
           totalCost: 0,
-          enddate: '2024-04-26T02:52:16.893Z',
         },
       },
     },

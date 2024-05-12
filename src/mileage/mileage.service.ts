@@ -184,8 +184,12 @@ export class MileageService {
     if (!model.finish) {
       model.finish = await true;
     }
-    if (model.endDate == null && obj.enddate != null) {
-      model.endDate = await obj.enddate;
+    if (model.endDate == null) {
+      const lastMile = await this.mileageModel
+        .findOne()
+        .sort({ startDate: -1 });
+      console.log(lastMile.endDate);
+      model.endDate = await lastMile.endDate;
     }
     if (obj.totalCost != null) {
       model.totalCost = await obj.totalCost;
