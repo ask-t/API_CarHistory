@@ -10,6 +10,7 @@ import {
 import { MileageService } from './mileage.service';
 import { UpdateMileageDto } from './dto/update-mileage.dto';
 import { CreateMileageDto } from './dto/create-mileage.dto';
+import { UpdateCalculateDto } from './dto/update-calculate.dto';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('mileage')
@@ -101,5 +102,23 @@ export class MileageController {
   @Get('recents')
   findRecent() {
     return this.mileageService.findRecent();
+  }
+
+  @Put('calculate')
+  @ApiBody({
+    type: UpdateMileageDto,
+    examples: {
+      example1: {
+        summary: 'Example 1',
+        value: {
+          gasID: 'string',
+          totalCost: 0,
+          enddate: '2024-04-26T02:52:16.893Z',
+        },
+      },
+    },
+  })
+  calculate(@Body() updateCalculateDto: UpdateCalculateDto) {
+    return this.mileageService.calculate(updateCalculateDto);
   }
 }
