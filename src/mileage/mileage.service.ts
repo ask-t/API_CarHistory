@@ -3,10 +3,12 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { GetMileageDto } from './dto/get-mileage.dto';
 import { UpdateMileageDto } from './dto/update-mileage.dto';
 import { CreateMileageDto } from './dto/create-mileage.dto';
+import { UpdateCalculateDto } from './dto/update-calculate.dto';
 import { GetGasDto } from './dto/get-gas.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Mileage } from './schemas/mileage.schema';
 import { GasID } from './schemas/gasid.schema';
+
 @Injectable()
 export class MileageService {
   constructor(
@@ -144,13 +146,14 @@ export class MileageService {
 
   async finishGasID(id: string, totalCost: number): Promise<GasID> {
     const model = await this.gasIDModel.findById(id).exec();
-    model.finish = true;
-    model.endDate = new Date();
-    model.totalCost = totalCost;
+    model.finish = await true;
+    model.endDate = await new Date();
+    model.totalCost = await totalCost;
     for (let i = 0; i < model.IDs.length; i++) {
       const mileage = await this.mileageModel.findById(model.IDs[i]).exec();
-      const calculatedCost = (totalCost / model.totalMile) * mileage.miles;
-      mileage.cost = parseFloat(calculatedCost.toFixed(2));
+      const calculatedCost =
+        (await (totalCost / model.totalMile)) * (await mileage.miles);
+      mileage.cost = await parseFloat(calculatedCost.toFixed(2));
       await mileage.save();
     }
     return model.save();
@@ -172,5 +175,28 @@ export class MileageService {
       .sort({ startDate: -1 })
       .exec();
     return info;
+  }
+
+  async calculate(obj: UpdateCalculateDto): Promise<GasID> {
+    const model = await this.gasIDModel.findById(obj.gasID).exec();
+    console.log(`gasID is ${obj.gasID}`);
+    console.log(model);
+    if (!model.finish) {
+      model.finish = await true;
+    }
+    if (model.endDate == null && obj.enddate != null) {
+      model.endDate = await obj.enddate;
+    }
+    if (obj.totalCost != null) {
+      model.totalCost = await obj.totalCost;
+    }
+    for (let i = 0; i < model.IDs.length; i++) {
+      const mileage = await this.mileageModel.findById(model.IDs[i]).exec();
+      const calculatedCost =
+        (await (model.totalCost / model.totalMile)) * mileage.miles;
+      mileage.cost = await parseFloat(calculatedCost.toFixed(2));
+      await mileage.save();
+    }
+    return model.save();
   }
 }
