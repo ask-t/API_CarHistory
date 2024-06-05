@@ -16,10 +16,10 @@ export class MileageService {
     @InjectModel(GasID.name) private gasIDModel: Model<GasID>,
   ) {}
   async checkIN(): Promise<Mileage> {
-    const previous = this.getPrevious();
+    const previous = await this.getPrevious();
     const gID = await this.getGasID();
     const total = await this.gasIDModel.findById(gID).exec();
-    const firstMilage = new this.mileageModel({
+    const firstMilage = await new this.mileageModel({
       from: (await previous).to,
       total: total.totalMile,
       mile: -99999,
@@ -46,7 +46,7 @@ export class MileageService {
     const gIDModel = await this.gasIDModel.findById(info.gasID).exec();
     gIDModel.totalMile = await (gIDModel.totalMile + info.miles);
     console.log(info._id.toString());
-    gIDModel.IDs.push(info._id.toString());
+    await gIDModel.IDs.push(info._id.toString());
     if (info.gas) {
       await this.finishGasID(info.gasID.toString(), mile.totalCost);
       await this.setGasID();
@@ -96,7 +96,7 @@ export class MileageService {
   async getGasID(): Promise<string> {
     const model = await this.gasIDModel.findOne({ finish: false }).exec();
     if (!model) {
-      this.setGasID();
+      await this.setGasID();
       return this.getGasID();
     }
     return model._id.toString();
@@ -164,7 +164,7 @@ export class MileageService {
       .findOne()
       .sort({ startDate: -1 })
       .exec();
-    const endDate: Date = info.endDate;
+    const endDate: Date = await info.endDate;
     if (endDate == null) return true;
     return false;
   }
