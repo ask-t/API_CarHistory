@@ -36,20 +36,20 @@ export class MileageService {
       .sort({ startDate: -1 })
       .exec();
     console.log(info);
-    info.to = mile.to;
-    info.miles = info.to - info.from;
-    info.endDate = new Date();
-    info.gas = mile.gas;
-    info.total = info.total + info.miles;
-    info.user = mile.user;
-    info.description = mile.description;
+    info.to = await mile.to;
+    info.miles = await (info.to - info.from);
+    info.endDate = await new Date();
+    info.gas = await mile.gas;
+    info.total = await (info.total + info.miles);
+    info.user = await mile.user;
+    info.description = await mile.description;
     const gIDModel = await this.gasIDModel.findById(info.gasID).exec();
-    gIDModel.totalMile = gIDModel.totalMile + info.miles;
+    gIDModel.totalMile = await (gIDModel.totalMile + info.miles);
     console.log(info._id.toString());
     gIDModel.IDs.push(info._id.toString());
     if (info.gas) {
-      this.finishGasID(info.gasID.toString(), mile.totalCost);
-      this.setGasID();
+      await this.finishGasID(info.gasID.toString(), mile.totalCost);
+      await this.setGasID();
     }
     gIDModel.save();
     return info.save();
